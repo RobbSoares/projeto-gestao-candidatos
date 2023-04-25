@@ -6,5 +6,6 @@
         string Deletar(Candidato candidato);
         string Atualizar(Candidato candidato);
         string Criar(Candidato candidato);
+        IEnumerable<Candidato> Consultar(Candidato candidato);
     }
 }

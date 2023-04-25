@@ -4,20 +4,24 @@
     {
 
         public string Nome { get; set; } 
-        public string Filiacao { get; set; }
-        public string CursoMatriculado { get; set; }
-        public string CursoInteresse { get; set; }
+        public Filiacao Filiacao { get; set; }
+        public List<Curso> CursosMatriculados { get; set; }
+        public List<Curso> CursosInteresses { get; set; }
         public int Prioridade { get; set; }
-
+        public DateTime Registro { get; set; } = DateTime.Now;
+        public List<Telefone> Telefones { get; set; }
+        public Endereco Endereco { get; set; }
         public Candidato() { }
 
-        public Candidato(string nome, string filiacao, string cursoMatriculado, string cursoInteresse, int prioridade)
+        public Candidato(string nome, Filiacao filiacao, List<Curso> cursosMatriculados, List<Curso> cursosInteresses, int prioridade, List<Telefone> telefones, Endereco endereco)
         {
             Nome = nome;
             Filiacao = filiacao;
-            CursoMatriculado = cursoMatriculado;
-            CursoInteresse = cursoInteresse;
+            CursosMatriculados = cursosMatriculados;
+            CursosInteresses = cursosInteresses;
             Prioridade = prioridade;
+            Telefones = telefones;
+            Endereco = endereco;
         }   
     }
 }

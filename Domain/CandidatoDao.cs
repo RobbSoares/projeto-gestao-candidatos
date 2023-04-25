@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Engenharia.Gestao.De.Candidatos;
+using System.Collections.Generic;
 
 namespace Engenharia.Gestao.De.Candidatos.Domain
 {
@@ -25,7 +26,7 @@ namespace Engenharia.Gestao.De.Candidatos.Domain
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Candidato> Consultar()
+        public IEnumerable<Candidato> Consultar(Candidato candidato)
         {
             string connectionString = "Data Source=192.168.1.110:1521/oracle;User Id=app;Password=123;Validate Connection=true;";
             var dataBase = new DatabaseConnection(connectionString);

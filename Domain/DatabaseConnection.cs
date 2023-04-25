@@ -26,7 +26,7 @@ namespace Engenharia.Gestao.De.Candidatos.Domain
             using (_oracleConnection)
             {
                 _oracleConnection.Open();
-                string sql = $"INSERT INTO Candidato ({candidato.Id}, {candidato.CursoInteresse}";
+                string sql = $"INSERT INTO Candidato ({candidato.Id}, {candidato.Nome}";
                 _oracleConnection.Execute(sql, candidato);
             }
         }
