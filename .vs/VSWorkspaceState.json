@@ -1,16 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\src",
-    "\\src\\Gestao.Candidatos",
-    "\\src\\Gestao.Candidatos\\2 - Domain",
-    "\\src\\Gestao.Candidatos\\2 - Domain\\Gestao.Candidatos.Domain",
-    "\\src\\Gestao.Candidatos\\3 - Infra",
-    "\\src\\Gestao.Candidatos\\3 - Infra\\Data",
-    "\\src\\Gestao.Candidatos\\3 - Infra\\Data\\Gestao.Candidatos.Infra.Data",
-    "\\src\\Gestao.Candidatos\\4 - Tests",
-    "\\src\\Gestao.Candidatos\\4 - Tests\\Tests"
+    ""
   ],
-  "SelectedNode": "\\src\\Gestao.Candidatos\\Gestao.Candidatos.sln",
+  "SelectedNode": "\\C:\\Users\\robbs\\OneDrive\\Documentos\\Engenharia.Gestao.De.Candidatos",
   "PreviewInSolutionExplorer": false
 }
