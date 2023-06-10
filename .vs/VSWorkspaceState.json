@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\src",
+    "\\src\\Gestao.Candidatos"
   ],
-  "SelectedNode": "\\Engenharia.Gestao.De.Candidatos.sln",
+  "SelectedNode": "\\src\\Gestao.Candidatos.API",
   "PreviewInSolutionExplorer": false
 }
