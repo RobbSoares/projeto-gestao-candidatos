@@ -1,6 +1,6 @@
 ﻿using MySqlConnector;
 
-namespace Engenharia.Gestao.De.Candidatos.Domain
+namespace Gestao.Candidatos.Infra.Data.Utils
 {
     public static class DatabaseConnection
     {

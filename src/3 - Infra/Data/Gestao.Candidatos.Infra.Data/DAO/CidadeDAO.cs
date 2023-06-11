@@ -1,15 +1,16 @@
-﻿using Engenharia.Gestao.De.Candidatos;
-using Gestao.Candidatos.Domain.Interfaces;
-using Gestao.Candidatos.Infra.Data.DAO;
+﻿using Gestao.Candidatos.Domain.Interfaces;
 using MySqlConnector;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Engenharia.Gestao.De.Candidatos.Domain
+namespace Gestao.Candidatos.Infra.Data.DAO
 {
-    public class CandidatoDAO : AbstractDAO
+    public class CidadeDAO : AbstractDAO
     {
-        public CandidatoDAO(MySqlConnection connection) 
-            : base(connection)
+        public CidadeDAO(MySqlConnection connection) : base(connection)
         {
         }
 

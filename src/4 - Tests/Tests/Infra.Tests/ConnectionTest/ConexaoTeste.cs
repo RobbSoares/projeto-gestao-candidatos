@@ -1,3 +1,5 @@
+using Gestao.Candidatos.Infra.Data.Utils;
+
 namespace Tests.Infra.Tests.ConnectionTest
 {
     public class Tests
