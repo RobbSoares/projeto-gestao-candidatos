@@ -1,6 +1,6 @@
 ﻿namespace Gestao.Candidatos.Domain.Interfaces
 {
-    public interface IEntity
+    public interface IEntidade
     {
         int Id { get; set; }
     }

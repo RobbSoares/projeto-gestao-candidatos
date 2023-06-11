@@ -1,40 +1,36 @@
 ﻿using Engenharia.Gestao.De.Candidatos;
 using Gestao.Candidatos.Domain.Interfaces;
+using Gestao.Candidatos.Infra.Data.DAO;
+using MySqlConnector;
 using System.Collections.Generic;
 
 namespace Engenharia.Gestao.De.Candidatos.Domain
 {
-    public class CandidatoDao : IDao
+    public class CandidatoDao : AbstractDAO
     {
-        public string Atualizar(Candidato candidato)
+        public CandidatoDao(MySqlConnection connection) 
+            : base(connection)
+        {
+        }
+
+        public override string Atualizar(IEntidade entidade)
         {
             throw new NotImplementedException();
         }
 
-        public string Criar(Candidato candidato)
-        {
-            
-            throw new NotImplementedException();
-        }
-
-        public string Deletar(Candidato candidato)
+        public override IEnumerable<IEntidade> Consultar(IEntidade entidade)
         {
             throw new NotImplementedException();
         }
 
-        public string Salvar(Candidato candidato)
+        public override string Deletar(IEntidade entidade)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Candidato> Consultar(Candidato candidato)
+        public override string Salvar(IEntidade entidade)
         {
-            string connectionString = "Data Source=192.168.1.110:1521/oracle;User Id=app;Password=123;Validate Connection=true;";
-            var dataBase = new DatabaseConnection(connectionString);
-
-            var candidatos = dataBase.Query<Candidato>("select * from candidatos");
-
-            return candidatos;
+            throw new NotImplementedException();
         }
     }
 }

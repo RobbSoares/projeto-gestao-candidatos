@@ -1,6 +1,6 @@
 ﻿namespace Engenharia.Gestao.De.Candidatos.Domain
 {
-    public class Cidade : Entity
+    public class Cidade : Entidade
     {
         public string Nome { get; set; }
         public Estado Estado { get; set; }

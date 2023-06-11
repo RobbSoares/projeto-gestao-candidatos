@@ -1,8 +1,7 @@
 ﻿namespace Engenharia.Gestao.De.Candidatos.Domain
 {
-    public class Candidato : Entity
+    public class Candidato : Entidade
     {
-
         public string Nome { get; set; } 
         public Filiacao Filiacao { get; set; }
         public List<Curso> CursosMatriculados { get; set; }
