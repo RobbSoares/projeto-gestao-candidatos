@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32811.315
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - API", "1 - API", "{5F3978FF-0AC5-4E6E-A38C-BD3B7D37EB80}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Application", "1 - Application", "{5F3978FF-0AC5-4E6E-A38C-BD3B7D37EB80}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gestao.Candidatos.API", "1 - API\Gestao.Candidatos.API\Gestao.Candidatos.API.csproj", "{AD0650C3-4F3C-4D9E-A3E6-4C7C23F9A60D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gestao.Candidatos.Application", "1 - API\Gestao.Candidatos.API\Gestao.Candidatos.Application.csproj", "{AD0650C3-4F3C-4D9E-A3E6-4C7C23F9A60D}"
 	ProjectSection(ProjectDependencies) = postProject
 		{48827006-C8D8-413D-86A9-22DD5406E149} = {48827006-C8D8-413D-86A9-22DD5406E149}
 		{FE38A887-F1BF-4EE2-B756-2899FBCA372D} = {FE38A887-F1BF-4EE2-B756-2899FBCA372D}

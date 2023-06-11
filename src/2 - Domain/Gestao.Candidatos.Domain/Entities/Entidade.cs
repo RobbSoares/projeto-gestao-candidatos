@@ -2,7 +2,7 @@
 
 namespace Engenharia.Gestao.De.Candidatos.Domain
 {
-    public class Entity : IEntity
+    public class Entidade: IEntidade
     {
         public int Id { get; set; }
     }

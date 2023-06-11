@@ -1,34 +1,14 @@
-﻿using Dapper;
-using Oracle.ManagedDataAccess.Client;
+﻿using MySqlConnector;
 
 namespace Engenharia.Gestao.De.Candidatos.Domain
 {
-    public class DatabaseConnection
+    public static class DatabaseConnection
     {
-        private readonly OracleConnection _oracleConnection;
-
-        public DatabaseConnection(string connectionString)
+        public static MySqlConnection GetConnection()
         {
-            _oracleConnection = new OracleConnection(connectionString);
-        }
-
-        public IEnumerable<T> Query<T>(string sql, object parameters = null)
-        {
-            using (_oracleConnection)
-            {
-                _oracleConnection.Open();
-                return _oracleConnection.Query<T>(sql, parameters);
-            }
-        }
-
-        public void Insert(Candidato candidato)
-        {
-            using (_oracleConnection)
-            {
-                _oracleConnection.Open();
-                string sql = $"INSERT INTO Candidato ({candidato.Id}, {candidato.Nome}";
-                _oracleConnection.Execute(sql, candidato);
-            }
+            string _connectionString = "server=127.0.0.1;uid=root;pwd=usbw;database=gestao";
+            using var connection = new MySqlConnection(_connectionString);
+            return connection;
         }
     }
 }
