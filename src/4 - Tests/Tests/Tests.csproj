@@ -16,4 +16,8 @@
     <PackageReference Include="coverlet.collector" Version="3.1.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\3 - Infra\Data\Gestao.Candidatos.Infra.Data\Gestao.Candidatos.Infra.Data.csproj" />
+  </ItemGroup>
+
 </Project>

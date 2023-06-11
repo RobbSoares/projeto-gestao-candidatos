@@ -1,6 +1,6 @@
 ﻿namespace Engenharia.Gestao.De.Candidatos.Domain
 {
-    public class Endereco : Entity
+    public class Endereco : Entidade
     {
         public string Logradouro { get; set; }
         public string CEP { get; set; }
