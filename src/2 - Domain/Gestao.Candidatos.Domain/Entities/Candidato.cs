@@ -7,7 +7,6 @@
         public List<Curso> CursosMatriculados { get; set; }
         public List<Curso> CursosInteresses { get; set; }
         public int Prioridade { get; set; }
-        public DateTime Registro { get; set; } = DateTime.Now;
         public List<Telefone> Telefones { get; set; }
         public Endereco Endereco { get; set; }
         public Candidato() { }

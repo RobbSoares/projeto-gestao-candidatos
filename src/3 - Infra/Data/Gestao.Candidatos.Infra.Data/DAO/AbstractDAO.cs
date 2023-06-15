@@ -1,4 +1,5 @@
 ﻿using Gestao.Candidatos.Domain.Interfaces;
+using Gestao.Candidatos.Infra.Data.DAO.Interfaces;
 using Gestao.Candidatos.Infra.Data.Utils;
 using MySqlConnector;
 using System;

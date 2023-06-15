@@ -1,6 +1,7 @@
 ﻿using Engenharia.Gestao.De.Candidatos.Domain;
+using Gestao.Candidatos.Domain.Interfaces;
 
-namespace Gestao.Candidatos.Domain.Interfaces
+namespace Gestao.Candidatos.Infra.Data.DAO.Interfaces
 {
     public interface IDao
     {
