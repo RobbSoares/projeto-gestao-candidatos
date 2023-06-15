@@ -5,10 +5,10 @@ CREATE TABLE candidatos (
   can_nome_pai varchar(200) COLLATE utf8_bin NOT NULL,
   can_nome_mae varchar(200) COLLATE utf8_bin NOT NULL,
   can_dt_registro date NOT NULL,
-  can_curso_escolha varchar(200),
-  can_interesse_curso_um varchar(200),
-  can_interesse_curso_dois varchar(200),
-  can_interesse_curso_tres varchar(200)
+  can_curso_escolha int,
+  can_interesse_curso_um int,
+  can_interesse_curso_dois int,
+  can_interesse_curso_tres int
 );
 
 CREATE TABLE endereco (
@@ -17,8 +17,6 @@ CREATE TABLE endereco (
   end_cep varchar(10) COLLATE utf8_bin NOT NULL,
   end_numero int NOT NULL
 );
-
-
 
 CREATE TABLE cidades (
   cid_id int(100) NOT NULL,
@@ -49,6 +47,20 @@ CREATE TABLE candidatos_telefones (
   ctl_can_id int NOT NULL
 );
 
+CREATE TABLE cursos_interessados (
+  cin_id int NOT NULL,
+  cin_nome VARCHAR(200) COLLATE utf8_bin NOT NULL,
+  cin_matriculado bit,
+  cin_cur_id int
+);
+
+CREATE TABLE cursos (
+  cur_id INT NOT NULL,
+  cur_nome VARCHAR(200) COLLATE utf8_bin NOT NULL,
+  cur_descricao VARCHAR(500) COLLATE utf8_bin NOT NULL
+);
+
+
 ALTER TABLE candidatos
   ADD PRIMARY KEY (can_id);
 
@@ -59,12 +71,24 @@ ALTER TABLE cidades
 ALTER TABLE endereco
   ADD PRIMARY KEY (end_id);
 
+ALTER TABLE cursos
+  ADD PRIMARY KEY (cur_id);
+
+ALTER TABLE cursos_interessados
+  ADD PRIMARY KEY (cin_id);
+
 ALTER TABLE estados
   ADD PRIMARY KEY (est_id),
   ADD KEY fk_est_cid_id (est_capital_id);
 
 ALTER TABLE telefones
   ADD PRIMARY KEY (tel_id);
+
+ALTER TABLE cursos_interessados
+  MODIFY cur_id int NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE cursos
+  MODIFY cin_id int NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE candidatos
   MODIFY can_id int NOT NULL AUTO_INCREMENT;
@@ -98,3 +122,19 @@ ALTER TABLE candidatos_telefones
   
 ALTER TABLE candidatos_telefones
   ADD CONSTRAINT fk_ctl_can FOREIGN KEY (ctl_can_id) REFERENCES candidatos (can_id);
+
+ALTER TABLE candidatos
+  ADD FOREIGN KEY (can_curso_escolha) REFERENCES cursos_interessados (cin_id);
+
+ALTER TABLE candidatos
+  ADD FOREIGN KEY (can_interesse_curso_um) REFERENCES cursos_interessados (cin_id);
+
+ALTER TABLE candidatos
+  ADD FOREIGN KEY (can_interesse_curso_dois) REFERENCES cursos_interessados (cin_id);
+
+ALTER TABLE candidatos
+  ADD FOREIGN KEY (can_interesse_curso_tres) REFERENCES cursos_interessados (cin_id);
+
+ALTER TABLE cursos_interessados
+  ADD FOREIGN KEY (cin_cur_id) REFERENCES cursos (cur_id)
+
