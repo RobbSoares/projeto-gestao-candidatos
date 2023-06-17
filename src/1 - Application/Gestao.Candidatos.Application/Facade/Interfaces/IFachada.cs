@@ -1,7 +1,7 @@
 ﻿using Gestao.Candidatos.Domain.Interfaces;
 using Gestao.Candidatos.Domain.Result;
 
-namespace Gestao.Candidatos.Application.Fachada.Interfaces
+namespace Gestao.Candidatos.Application.Facade.Interfaces
 {
 
     public interface IFachada

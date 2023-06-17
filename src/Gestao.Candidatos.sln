@@ -28,9 +28,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "4 - Tests\Tests\Te
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0 - API", "0 - API", "{DCC73C20-FFD7-4C3E-B4CC-F331FBD81139}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gestao.Candidatos.API", "0 - API\Gestao.Candidatos.API\Gestao.Candidatos.API.csproj", "{3F3F10AC-1400-46C0-8909-F96EC7E599FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gestao.Candidatos.API", "0 - API\Gestao.Candidatos.API\Gestao.Candidatos.API.csproj", "{3F3F10AC-1400-46C0-8909-F96EC7E599FC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{EF9A2C57-F522-48E7-AB10-D6F0BF4D5FC8} = {EF9A2C57-F522-48E7-AB10-D6F0BF4D5FC8}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gestao.Candidatos.Application", "1 - Application\Gestao.Candidatos.Application\Gestao.Candidatos.Application.csproj", "{EF9A2C57-F522-48E7-AB10-D6F0BF4D5FC8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gestao.Candidatos.Application", "1 - Application\Gestao.Candidatos.Application\Gestao.Candidatos.Application.csproj", "{EF9A2C57-F522-48E7-AB10-D6F0BF4D5FC8}"
 	ProjectSection(ProjectDependencies) = postProject
 		{48827006-C8D8-413D-86A9-22DD5406E149} = {48827006-C8D8-413D-86A9-22DD5406E149}
 		{FE38A887-F1BF-4EE2-B756-2899FBCA372D} = {FE38A887-F1BF-4EE2-B756-2899FBCA372D}

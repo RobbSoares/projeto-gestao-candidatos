@@ -3,21 +3,21 @@
     public class Candidato : Entidade
     {
         public string Nome { get; set; } 
-        public Filiacao Filiacao { get; set; }
+        public string NomePai { get; set; }
+        public string NomeMae { get; set; }
         public List<Curso> CursosMatriculados { get; set; }
         public List<Curso> CursosInteresses { get; set; }
-        public int Prioridade { get; set; }
         public List<Telefone> Telefones { get; set; }
         public Endereco Endereco { get; set; }
         public Candidato() { }
 
-        public Candidato(string nome, Filiacao filiacao, List<Curso> cursosMatriculados, List<Curso> cursosInteresses, int prioridade, List<Telefone> telefones, Endereco endereco)
+        public Candidato(string nome, string nomePai, string nomeMae, List<Curso> cursosMatriculados, List<Curso> cursosInteresses, List<Telefone> telefones, Endereco endereco)
         {
             Nome = nome;
-            Filiacao = filiacao;
+            NomePai = nomePai;
+            NomeMae = nomeMae;
             CursosMatriculados = cursosMatriculados;
             CursosInteresses = cursosInteresses;
-            Prioridade = prioridade;
             Telefones = telefones;
             Endereco = endereco;
         }   

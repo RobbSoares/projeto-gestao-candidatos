@@ -1,4 +1,5 @@
-﻿using Gestao.Candidatos.Domain.Interfaces;
+﻿using Engenharia.Gestao.De.Candidatos.Domain;
+using Gestao.Candidatos.Domain.Interfaces;
 using MySqlConnector;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Gestao.Candidatos.Infra.Data.DAO
 {
     public class TelefoneDAO : AbstractDAO
     {
-        public TelefoneDAO(MySqlConnection connection) : base(connection)
+        public TelefoneDAO()
         {
         }
 
@@ -19,7 +20,7 @@ namespace Gestao.Candidatos.Infra.Data.DAO
             throw new NotImplementedException();
         }
 
-        public override IEnumerable<IEntidade> Consultar(IEntidade entidade)
+        public override List<IEntidade> Consultar(IEntidade entidade)
         {
             throw new NotImplementedException();
         }
@@ -29,7 +30,7 @@ namespace Gestao.Candidatos.Infra.Data.DAO
             throw new NotImplementedException();
         }
 
-        public override string Salvar(IEntidade entidade)
+        public override void Salvar(IEntidade entidade)
         {
             throw new NotImplementedException();
         }
