@@ -109,7 +109,7 @@ namespace Gestao.Candidatos.API.ViewHelper
                 
                 if (resultado.Mensagem == null && operacao.Equals("SALVAR"))
                 {
-                    resultado.Mensagem = "Produto cadastrado com sucesso!";
+                    resultado.Mensagem = "Candidato cadastrado com sucesso!";
                 }
 
                 if (resultado.Mensagem == null && operacao.Equals("CONSULTAR"))
@@ -124,7 +124,7 @@ namespace Gestao.Candidatos.API.ViewHelper
 
                 if (resultado.Mensagem == null && operacao.Equals("EXCLUIR"))
                 {
-                    resultado.Mensagem = "Produto excluído com sucesso!";
+                    resultado.Mensagem = "Candidato excluído com sucesso!";
                 }
 
                 

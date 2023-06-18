@@ -22,7 +22,36 @@ namespace Gestao.Candidatos.Infra.Data.DAO
 
         public override List<IEntidade> Consultar(IEntidade entidade)
         {
-            throw new NotImplementedException();
+            OpenConnection();
+
+            string sql = "SELECT * FROM cursos";
+
+            try
+            {
+                List<IEntidade> cursos = new List<IEntidade>();
+
+                using MySqlCommand command = new(sql, _connection);
+
+                using MySqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    Curso curso = new Curso();
+
+                    curso.Id = reader.GetInt32("cur_id");
+                    curso.Nome = reader.GetString("cur_nome");
+                    curso.Descricao = reader.GetString("cur_descricao");
+
+                    cursos.Add(curso);
+                }
+
+                return cursos;
+            }
+            catch (MySqlException ex)
+            {
+                throw ex;
+            }
+
+            _connection.Close();
         }
 
         public override string Deletar(IEntidade entidade)

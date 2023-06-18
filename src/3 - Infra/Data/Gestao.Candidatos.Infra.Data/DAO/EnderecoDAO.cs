@@ -41,8 +41,8 @@ namespace Gestao.Candidatos.Infra.Data.DAO
             Endereco end = (Endereco) entidade;
             StringBuilder sql = new StringBuilder();
 
-            sql.Append("INSERT INTO endereco (end_logradouro, end_numero, end_cep)  ");
-            sql.Append("VALUES (?, ?, ?)");
+            sql.Append("INSERT INTO enderecos (end_logradouro, end_numero, end_cep, end_cidade, end_estado)  ");
+            sql.Append("VALUES (?, ?, ?, ?, ?)");
             
             MySqlTransaction transaction = _connection.BeginTransaction();
 
@@ -52,6 +52,8 @@ namespace Gestao.Candidatos.Infra.Data.DAO
                 command.Parameters.AddWithValue("@valor1", end.Logradouro);
                 command.Parameters.AddWithValue("@valor2", end.Numero);
                 command.Parameters.AddWithValue("@valor3", end.CEP);
+                command.Parameters.AddWithValue("@valor4", end.Cidade.Nome);
+                command.Parameters.AddWithValue("@valor5", end.Cidade.Estado.Nome);
 
                 command.ExecuteNonQuery();
                 end.Id = (int) command.LastInsertedId;

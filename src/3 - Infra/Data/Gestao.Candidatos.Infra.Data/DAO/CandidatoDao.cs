@@ -117,9 +117,15 @@ namespace Engenharia.Gestao.De.Candidatos.Domain
             var candidato = (Candidato)entidade;
             var endereco = candidato.Endereco;
 
+            CandidatoEnderecoDAO candEnd = new CandidatoEnderecoDAO();
+            CandidatoTelefoneDAO candidatoTelefone = new CandidatoTelefoneDAO();
 
             EnderecoDAO enderecoDAO = new EnderecoDAO();
             enderecoDAO.Salvar(endereco);
+
+            TelefoneDAO telefoneDAO = new TelefoneDAO();
+            telefoneDAO.Salvar(candidato);
+
             Console.WriteLine(endereco);
             string sql = "INSERT INTO candidatos(can_nome, can_nome_pai, can_nome_mae, can_dt_registro, can_email, can_senha) VALUES (@nome,@nomePai, @nomeMae,@registro, @email, @senha)";
             //string sqlCanEnd = "INSERT INTO candidatos_enderecos (cen_can_id, cen_end_id) VALUES (@nome, @endereco)";
@@ -139,6 +145,11 @@ namespace Engenharia.Gestao.De.Candidatos.Domain
                     candidato.Id = (int)command.LastInsertedId;
                     transaction.Commit();
                 }
+
+                
+                candEnd.Salvar(candidato);
+                candidatoTelefone.Salvar(candidato);
+
             }
             catch (Exception ex)
             {

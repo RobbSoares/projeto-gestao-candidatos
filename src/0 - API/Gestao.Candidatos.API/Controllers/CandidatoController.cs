@@ -32,7 +32,7 @@ namespace Gestao.Candidatos.API.Controllers
             commands.Add("EXCLUIR", new ExcluirCommand());
 
             var candidatoViewHelper = new CandidatoViewHelper();
-
+            
             viewHelpers = new Dictionary<string, IViewHelper>
             {
                 { "SalvarCandidato", candidatoViewHelper },

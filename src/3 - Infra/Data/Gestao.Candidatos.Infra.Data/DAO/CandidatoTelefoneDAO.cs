@@ -9,12 +9,8 @@ using System.Threading.Tasks;
 
 namespace Gestao.Candidatos.Infra.Data.DAO
 {
-    public class TelefoneDAO : AbstractDAO
+    public class CandidatoTelefoneDAO : AbstractDAO
     {
-        public TelefoneDAO()
-        {
-        }
-
         public override string Atualizar(IEntidade entidade)
         {
             throw new NotImplementedException();
@@ -37,12 +33,11 @@ namespace Gestao.Candidatos.Infra.Data.DAO
                 OpenConnection();
             }
 
-            var candidato = (Candidato) entidade;
+            Candidato candidato = (Candidato)entidade;
             var telefones = candidato.Telefones;
-
             StringBuilder sql = new StringBuilder();
 
-            sql.Append("INSERT INTO telefones (tel_numero, tel_tipo) VALUES (@numero, @tipo)");
+            sql.Append("INSERT INTO candidatos_telefones(ctl_can_id, ctl_tel_id) VALUES (@IdCandidato, @IdTelefone)");
 
             MySqlTransaction transaction = _connection.BeginTransaction();
 
@@ -54,11 +49,9 @@ namespace Gestao.Candidatos.Infra.Data.DAO
 
                     using (MySqlCommand command = new MySqlCommand(sql.ToString(), _connection, transaction))
                     {
-                        command.Parameters.AddWithValue("@numero", telefone.Numero);
-                        command.Parameters.AddWithValue("@tipo", telefone.TipoTelefone);
+                        command.Parameters.AddWithValue("@IdCandidato", candidato.Id);
+                        command.Parameters.AddWithValue("@IdTelefone", telefone.Id);
                         command.ExecuteNonQuery();
-
-                        telefone.Id = (int)command.LastInsertedId;
                     }
                 }
 

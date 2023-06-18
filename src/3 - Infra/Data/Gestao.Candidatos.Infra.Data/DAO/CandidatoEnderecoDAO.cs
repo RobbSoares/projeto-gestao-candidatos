@@ -9,12 +9,8 @@ using System.Threading.Tasks;
 
 namespace Gestao.Candidatos.Infra.Data.DAO
 {
-    public class TelefoneDAO : AbstractDAO
+    internal class CandidatoEnderecoDAO : AbstractDAO
     {
-        public TelefoneDAO()
-        {
-        }
-
         public override string Atualizar(IEntidade entidade)
         {
             throw new NotImplementedException();
@@ -37,31 +33,22 @@ namespace Gestao.Candidatos.Infra.Data.DAO
                 OpenConnection();
             }
 
-            var candidato = (Candidato) entidade;
-            var telefones = candidato.Telefones;
-
+            Candidato candidato = (Candidato) entidade;
             StringBuilder sql = new StringBuilder();
 
-            sql.Append("INSERT INTO telefones (tel_numero, tel_tipo) VALUES (@numero, @tipo)");
+            sql.Append("INSERT INTO candidatos_enderecos(cen_can_id, cen_end_id) VALUES (@IdCandidato, @IdEndereco)");
 
             MySqlTransaction transaction = _connection.BeginTransaction();
 
             try
             {
-                foreach (Telefone telefone in telefones)
-                {
-                    string query = "";
+                MySqlCommand command = new MySqlCommand(sql.ToString(), _connection, transaction);
 
-                    using (MySqlCommand command = new MySqlCommand(sql.ToString(), _connection, transaction))
-                    {
-                        command.Parameters.AddWithValue("@numero", telefone.Numero);
-                        command.Parameters.AddWithValue("@tipo", telefone.TipoTelefone);
-                        command.ExecuteNonQuery();
+                command = new MySqlCommand(sql.ToString(), _connection, transaction);
+                command.Parameters.AddWithValue("@IdCandidato", candidato.Id);
+                command.Parameters.AddWithValue("@IdEndereco", candidato.Endereco.Id);
 
-                        telefone.Id = (int)command.LastInsertedId;
-                    }
-                }
-
+                command.ExecuteNonQuery();
                 transaction.Commit();
             }
             catch (Exception ex)
