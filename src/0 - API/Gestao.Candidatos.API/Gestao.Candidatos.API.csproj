@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\1 - Application\Gestao.Candidatos.Application\Gestao.Candidatos.Application.csproj" />
+    <ProjectReference Include="..\..\2 - Domain\Gestao.Candidatos.Domain\Gestao.Candidatos.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

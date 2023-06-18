@@ -17,6 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\0 - API\Gestao.Candidatos.API\Gestao.Candidatos.API.csproj" />
+    <ProjectReference Include="..\..\1 - Application\Gestao.Candidatos.Application\Gestao.Candidatos.Application.csproj" />
     <ProjectReference Include="..\..\3 - Infra\Data\Gestao.Candidatos.Infra.Data\Gestao.Candidatos.Infra.Data.csproj" />
   </ItemGroup>
 
