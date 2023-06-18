@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head class="background">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../assets/styles/teste.css">
+</head>
+
+<body class="background">
+
+    <header class="header">
+        <div class="title">
+            <h1>Cadastro de Candidato</h1>
+        </div>
+
+
+        <div class="logout">
+            <p><a href="./login.html">Voltar</a></p>
+        </div>
+    </header>
+
+    <section class="input-container sign-client">
+        <div class="grid">
+            <fieldset class="fieldset">
+                <form id="cadastroForm">
+                    <div class=" group">
+                        <fieldset class="fieldset">
+                            <legend>Dados básicos</legend>
+
+                            <div class="input-group">
+                                <label for="name">Nome</label>
+                                <input type="text" name="name" id="name">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="motherName">Nome da mãe</label>
+                                <input type="text" name="motherName" id="motherName">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="fatherName">Nome do pai</label>
+                                <input type="text" name="fatherName" id="fatherName">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="phone1">Celular</label>
+                                <input type="text" name="phone1" id="phone1">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="phone2">Telefone fixo</label>
+                                <input type="text" name="phone2" id="phone2">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="phone3">Telefone para contato</label>
+                                <input type="text" name="phone3" id="phone3">
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="fieldset">
+                            <legend>Endereço</legend>
+
+                            <div class="input-group">
+                                <label for="street">Logradouro</label>
+                                <input type="text" name="street" id="street">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="number">Número</label>
+                                <input type="text" name="number" id="number">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="CEP">CEP</label>
+                                <input type="text" name="CEP" id="CEP">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="city">Cidade</label>
+                                <input type="text" name="city" id="city">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="state">Estado</label>
+                                <input type="text" name="state" id="state">
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="fieldset">
+                            <legend>Cursos para matrícula</legend>
+
+                            <div class="input-group">
+                                <label for="curso1">Primeira escolha:</label>
+                                <select id="curso1"></select>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="curso2">Segunda escolha:</label>
+                                <select id="curso2"></select>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="curso3">Terceira escolha:</label>
+                                <select id="curso3"></select>
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="fieldset">
+                            <legend>Cursos de interesse</legend>
+
+                            <div class="input-group">
+                                <label for="cursoInteresse1">Primeira escolha:</label>
+                                <select id="cursoInteresse1"></select>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="cursoInteresse2">Segunda escolha:</label>
+                                <select id="cursoInteresse2"></select>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="cursoInteresse3">Terceira escolha:</label>
+                                <select id="cursoInteresse3"></select>
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="fieldset">
+                            <legend>Informações de login</legend>
+
+                            <div class="input-group">
+                                <label for="email">E-mail</label>
+                                <input type="text" name="email" id="email">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="password">Senha</label>
+                                <input type="password" name="password" id="password">
+                            </div>
+                        </fieldset>
+
+                        <button type="button" onclick="cadastrarCandidato()" class="button"
+                            id="cadastrar">Cadastrar</button>
+                    </div>
+                </form>
+            </fieldset>
+        </div>
+    </section>
+
+    <script src="../assets/script/login.js"></script>
+</body>
+
+</html>
