@@ -14,61 +14,97 @@ namespace Gestao.Candidatos.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class CandidatoController : Controller
+    public class CandidatoController : ControllerBase
     {
         private Dictionary<string, ICommand> commands;
         private Dictionary<string, IViewHelper> viewHelpers;
         private IViewHelper viewHelper;
         private ICommand command;
-        private Request request;
-        private string operacao;
-        private string classe;
+        private Request<Entidade> request;
+        private string _operacaoViewHelper;
 
         public CandidatoController()
         {
             commands = new Dictionary<string, ICommand>();
             commands.Add("SALVAR", new SalvarCommand());
             commands.Add("CONSULTAR", new ConsultarCommand());
-            commands.Add("ALTERAR", new SalvarCommand());
+            commands.Add("ALTERAR", new AlterarCommand());
             commands.Add("EXCLUIR", new ExcluirCommand());
 
-            viewHelpers = new Dictionary<string, IViewHelper>();
-            viewHelpers.Add("SalvarCandidato", new CandidatoViewHelper());
-        }
+            var candidatoViewHelper = new CandidatoViewHelper();
 
-        [HttpGet("{id}/{operacao}/{classe}")]
-        public ActionResult Get([FromRoute] string id, [FromRoute] string operacao, [FromRoute] string classe)
-        {
-            Entidade ent = new Entidade { Id = int.Parse(id) };
-            Request request = new Request { Entidade = ent, Classe = classe, Operacao = operacao };
-
-            Result result = ProcessRequest(request);
-            Response response = new Response();
-            response.Mensagem = result.Mensagem;
-            response.Entidades = new Dictionary<string, List<object>>();
-
-            // Adicione as entidades ao dicionário
-            foreach (IEntidade entidade in result.Entidades)
+            viewHelpers = new Dictionary<string, IViewHelper>
             {
-                string nomeClasse = entidade.GetType().Name;
-
-                if (!response.Entidades.ContainsKey(nomeClasse))
-                {
-                    response.Entidades[nomeClasse] = new List<object>();
-                }
-
-                response.Entidades[nomeClasse].Add(entidade);
-            }
-
-            return Ok(response.Data);
+                { "SalvarCandidato", candidatoViewHelper },
+                { "ConsultarCandidato", candidatoViewHelper },
+                { "AlterarCandidato", candidatoViewHelper },
+                { "ExcluirCandidato", candidatoViewHelper }
+            };
         }
 
-        protected Result ProcessRequest(Request request)
+        [HttpPost("consultarCandidato")]
+        public ActionResult Get(Request<Candidato> request)
         {
-            classe = request.Classe;
+            _operacaoViewHelper = "ConsultarCandidato";
 
+            var entidadeRequest = new Request<Entidade>
+            {
+                Entidade = request.Entidade,
+                Operacao = request.Operacao.ToUpper()
+            };
+
+            var result = ProcessRequest(entidadeRequest);
+            return Ok(new { result.StatusCode, result.Mensagem, result.Data, });
+        }
+
+        [HttpPost("salvarCandidato")]
+        public ActionResult Post(Request<Candidato> request)
+        {
+            _operacaoViewHelper = "SalvarCandidato";
+
+            var entidadeRequest = new Request<Entidade>
+            {
+                Entidade = request.Entidade,
+                Operacao = request.Operacao.ToUpper()
+            };
+
+            var result = ProcessRequest(entidadeRequest);
+            return Ok(new { result.StatusCode, result.Mensagem, result.Data, });
+        }
+
+        [HttpDelete("excluirCandidato")]
+        public ActionResult Delete(Request<Candidato> request)
+        {
+            _operacaoViewHelper = "ExcluirCandidato";
+
+            var entidadeRequest = new Request<Entidade>
+            {
+                Entidade = request.Entidade,
+                Operacao = request.Operacao.ToUpper()
+            };
+
+            var result = ProcessRequest(entidadeRequest);
+            return Ok(new { result.StatusCode, result.Mensagem, result.Data, });
+        }
+
+        [HttpPut("alterarCandidato")]
+        public ActionResult Put(Request<Candidato> request)
+        {
+            _operacaoViewHelper = "AlterarCandidato";
+
+            var entidadeRequest = new Request<Entidade>
+            {
+                Entidade = request.Entidade,
+                Operacao = request.Operacao.ToUpper()
+            };
+
+            var result = ProcessRequest(entidadeRequest);
+            return Ok(new { result.StatusCode, result.Mensagem, result.Data, });
+        }
+
+        protected Response ProcessRequest(Request<Entidade> request)
+        {
             this.request = request;
-
             Result resultado = DoProcess();
 
             return viewHelper.SetView(resultado, request);
@@ -76,22 +112,18 @@ namespace Gestao.Candidatos.API.Controllers
 
         protected Result DoProcess()
         {
-            viewHelper = viewHelpers[classe];
+            viewHelper = viewHelpers[_operacaoViewHelper];
 
-            IEntidade entidade = viewHelper.GetEntidade(request);
+            Entidade entidade = viewHelper.GetEntidade(request);
 
-            if (request == null)
+            if (request.Operacao == null)
             {
-                operacao = "CONSULTAR";
-            }
-            else
-            {
-                operacao = request.Operacao;
+                request.Operacao = "CONSULTAR";
             }
 
-            if (operacao != null)
+            if (request.Operacao != null)
             {
-                command = commands[operacao];
+                command = commands[request.Operacao.ToUpper()];
                 Result resultado = command.Execute(entidade);
 
                 return resultado;

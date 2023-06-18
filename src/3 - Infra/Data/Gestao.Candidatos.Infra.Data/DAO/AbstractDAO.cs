@@ -47,5 +47,7 @@ namespace Gestao.Candidatos.Infra.Data.DAO
                 Console.WriteLine(ex.Message);
             }
         }
+
+        
     }
 }

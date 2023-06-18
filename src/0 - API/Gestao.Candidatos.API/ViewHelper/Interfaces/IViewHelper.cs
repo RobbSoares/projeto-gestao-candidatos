@@ -1,4 +1,5 @@
-﻿using Gestao.Candidatos.Domain.Entities;
+﻿using Engenharia.Gestao.De.Candidatos.Domain;
+using Gestao.Candidatos.Domain.Entities;
 using Gestao.Candidatos.Domain.Interfaces;
 using Gestao.Candidatos.Domain.Result;
 
@@ -7,9 +8,9 @@ namespace Gestao.Candidatos.API.ViewHelper.Interfaces
     public interface IViewHelper
     {
 
-        public IEntidade GetEntidade(Request request);
-        public Result SetView(Result resultado, Request request);
-        public void SetView(Result resultado);
+        public Entidade GetEntidade(Request<Entidade> request);
+        public Response SetView(Result resultado, Request<Entidade> request);
+        public Response SetView(Result resultado);
     }
 
 }

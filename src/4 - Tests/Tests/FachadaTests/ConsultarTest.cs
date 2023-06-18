@@ -4,7 +4,7 @@ using Gestao.Candidatos.Infra.Data.Utils;
 
 namespace Tests.FachadaTests
 {
-    public class GetTest
+    public class ConsultarTest
     {
         private ICommand command = new ConsultarCommand();
 

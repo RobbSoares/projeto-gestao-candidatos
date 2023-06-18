@@ -68,7 +68,39 @@ namespace Gestao.Candidatos.Application.Facade
 
         public Result Alterar(IEntidade entidade)
         {
-            throw new NotImplementedException();
+            var resultado = new Result();
+
+            string nmClasse = entidade.GetType().Name;
+            string mensagem = ExecutarRegras(entidade, "ALTERAR");
+
+            if (mensagem == null)
+            {
+                try
+                {
+                    if (daos.ContainsKey(nmClasse))
+                    {
+                        IDAO dao = daos[nmClasse];
+                        dao.Atualizar(entidade);
+                        List<IEntidade> entidades = new()
+                        {
+                            (Entidade)entidade
+                        };
+
+                        resultado.Entidades = entidades;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                }
+            }
+            else
+            {
+                resultado.StatusCode = 400;
+                resultado.Mensagem = mensagem;
+            }
+
+            return resultado;
         }
 
         public Result Consultar(IEntidade entidade)
@@ -95,7 +127,32 @@ namespace Gestao.Candidatos.Application.Facade
 
         public Result Excluir(IEntidade entidade)
         {
-            throw new NotImplementedException();
+            var resultado = new Result();
+            string nmClasse = entidade.GetType().Name;
+
+            try
+            {
+                if (daos.ContainsKey(nmClasse))
+                {
+                    IDAO dao = daos[nmClasse];
+                    dao.Deletar(entidade);
+
+                    List<IEntidade> entidades = new()
+                    {
+                        (Entidade)entidade
+                    };
+
+                    resultado.Entidades = entidades;
+                }
+            }
+            catch (Exception ex)
+            {
+                resultado.StatusCode = 400;
+                resultado.Mensagem = "Ocorreu um erro durante a exclusão do candidato";
+                Console.WriteLine(ex);
+            }
+            
+            return resultado;
         }
 
         public Result Salvar(IEntidade entidade)
@@ -126,6 +183,7 @@ namespace Gestao.Candidatos.Application.Facade
             }
             else
             {
+                resultado.StatusCode = 400;
                 resultado.Mensagem = mensagem;
             }
             

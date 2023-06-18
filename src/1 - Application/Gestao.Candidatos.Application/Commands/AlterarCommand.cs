@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Gestao.Candidatos.Application.Commands
 {
-    internal class AlterarCommand : AbstractCommand
+    public class AlterarCommand : AbstractCommand
     {
         public override Result Execute(IEntidade entidade)
         {

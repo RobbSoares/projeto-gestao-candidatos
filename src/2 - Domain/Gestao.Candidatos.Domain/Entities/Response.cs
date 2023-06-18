@@ -8,8 +8,9 @@ namespace Gestao.Candidatos.Domain.Entities
 {
     public class Response
     {
+        public int StatusCode { get; set; }
         public string Mensagem { get; set; }
         public Dictionary<string, List<object>> Entidades { get; set; }
-        public object Data => new { Mensagem, Entidades };
+        public object Data => new { Entidades };
     }
 }

@@ -1,21 +1,43 @@
 
 CREATE TABLE candidatos (
-  can_id int NOT NULL,
+  can_id int NOT NULL AUTO_INCREMENT,
   can_nome varchar(200) COLLATE utf8_bin NOT NULL,
   can_nome_pai varchar(200) COLLATE utf8_bin NOT NULL,
   can_nome_mae varchar(200) COLLATE utf8_bin NOT NULL,
+  can_senha varchar(200) COLLATE utf8_bin NOT NULL,
+  can_email varchar(200) COLLATE utf8_bin NOT NULL,
   can_dt_registro date NOT NULL,
-  can_curso_escolha int,
-  can_interesse_curso_um int,
-  can_interesse_curso_dois int,
-  can_interesse_curso_tres int
+  PRIMARY KEY (can_id)
+);
+
+CREATE TABLE matricula (
+  can_id int NOT NULL,
+  cur_id int NOT NULL,
+  
+  CONSTRAINT fk_can FOREIGN KEY (can_id) REFERENCES candidatos (can_id),
+  CONSTRAINT fk_cur FOREIGN KEY (cur_id) REFERENCES cursos (cur_id)
+);
+
+CREATE TABLE interesses (
+  cur_int_id int NOT NULL,
+  can_int_id int NOT NULL,
+
+  CONSTRAINT fk_can_int FOREIGN KEY (can_int_id) REFERENCES candidatos (can_id),
+  CONSTRAINT fk_cur_int FOREIGN KEY (cur_int_id) REFERENCES cursos (cur_id)
+);
+
+CREATE TABLE cursos (
+  cur_id INT NOT NULL,
+  cur_nome VARCHAR(200) COLLATE utf8_bin NOT NULL,
+  cur_descricao VARCHAR(500) COLLATE utf8_bin NOT NULL
 );
 
 CREATE TABLE endereco (
-  end_id int NOT NULL,
+  end_id int NOT NULL AUTO_INCREMENT,
   end_logradouro varchar(250) COLLATE utf8_bin NOT NULL,
   end_cep varchar(10) COLLATE utf8_bin NOT NULL,
-  end_numero int NOT NULL
+  end_numero int NOT NULL,
+  PRIMARY KEY(end_id)
 );
 
 CREATE TABLE cidades (
@@ -47,22 +69,9 @@ CREATE TABLE candidatos_telefones (
   ctl_can_id int NOT NULL
 );
 
-CREATE TABLE cursos_interessados (
-  cin_id int NOT NULL,
-  cin_nome VARCHAR(200) COLLATE utf8_bin NOT NULL,
-  cin_matriculado bit,
-  cin_cur_id int
-);
-
-CREATE TABLE cursos (
-  cur_id INT NOT NULL,
-  cur_nome VARCHAR(200) COLLATE utf8_bin NOT NULL,
-  cur_descricao VARCHAR(500) COLLATE utf8_bin NOT NULL
-);
 
 
-ALTER TABLE candidatos
-  ADD PRIMARY KEY (can_id);
+
 
 ALTER TABLE cidades
   ADD PRIMARY KEY (cid_id),
@@ -89,9 +98,6 @@ ALTER TABLE cursos_interessados
 
 ALTER TABLE cursos
   MODIFY cin_id int NOT NULL AUTO_INCREMENT;
-
-ALTER TABLE candidatos
-  MODIFY can_id int NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE endereco
   MODIFY end_id int NOT NULL AUTO_INCREMENT;
@@ -122,19 +128,4 @@ ALTER TABLE candidatos_telefones
   
 ALTER TABLE candidatos_telefones
   ADD CONSTRAINT fk_ctl_can FOREIGN KEY (ctl_can_id) REFERENCES candidatos (can_id);
-
-ALTER TABLE candidatos
-  ADD FOREIGN KEY (can_curso_escolha) REFERENCES cursos_interessados (cin_id);
-
-ALTER TABLE candidatos
-  ADD FOREIGN KEY (can_interesse_curso_um) REFERENCES cursos_interessados (cin_id);
-
-ALTER TABLE candidatos
-  ADD FOREIGN KEY (can_interesse_curso_dois) REFERENCES cursos_interessados (cin_id);
-
-ALTER TABLE candidatos
-  ADD FOREIGN KEY (can_interesse_curso_tres) REFERENCES cursos_interessados (cin_id);
-
-ALTER TABLE cursos_interessados
-  ADD FOREIGN KEY (cin_cur_id) REFERENCES cursos (cur_id)
 

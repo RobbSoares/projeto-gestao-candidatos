@@ -46,6 +46,8 @@ namespace Tests.FachadaTests
                     Numero = 50
                 }
             };
+            string json = JsonSerializer.Serialize(candidato);
+            Console.WriteLine(json);
             var resultado = command.Execute((Candidato)candidato);
             Console.WriteLine(resultado.Mensagem);
            

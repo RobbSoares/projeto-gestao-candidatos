@@ -1,6 +1,6 @@
 using Gestao.Candidatos.Infra.Data.Utils;
 
-namespace Tests.Infra.Tests.ConnectionTest
+namespace Tests.InfraTests.CandidatoDAOTests
 {
     public class SalvarTest
     {
