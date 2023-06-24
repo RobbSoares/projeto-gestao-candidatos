@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="ControllerTest\**" />
+    <Compile Remove="FachadaTests\**" />
+    <Compile Remove="InfraTests\**" />
+    <EmbeddedResource Remove="ControllerTest\**" />
+    <EmbeddedResource Remove="FachadaTests\**" />
+    <EmbeddedResource Remove="InfraTests\**" />
+    <None Remove="ControllerTest\**" />
+    <None Remove="FachadaTests\**" />
+    <None Remove="InfraTests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.123" />
+    <PackageReference Include="MySqlConnector" Version="2.2.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Engenharia.Candidatos.Domain\Engenharia.Candidatos.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
