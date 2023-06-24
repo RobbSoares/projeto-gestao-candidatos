@@ -1,0 +1,361 @@
+﻿@page "/cadastrar/candidato"
+
+@inject Microsoft.AspNetCore.Components.NavigationManager NavigationManager;
+@inject Engenharia.Candidatos.WebUI.Controllers.CandidatoController CandidatoController;
+
+<PageTitle>Cadastro de candidatos</PageTitle>
+
+<EditForm Model="@_candidato" OnValidSubmit="Submit">
+    <DataAnnotationsValidator />
+
+    <div class="container mt-5 mb-5 d-flex justify-content-center">
+        <div class="mx-auto col-10 col-md-8 col-lg-6">
+           
+            @if (etapaAtual == 1)
+            {
+                <fieldset class="form-group">
+                    <legend>Dados básicos</legend>
+
+                    <div class="form-group m-2">
+                        <label for="name">Nome</label>
+                        <InputText class="form-control" @bind-Value="_candidato.Nome" />
+                    </div>
+
+                    <div class="form-group m-2">
+                        <label for="motherName">Nome da mãe</label>
+                        <InputText class="form-control" @bind-Value="_candidato.NomeMae" />
+                    </div>
+
+                    <div class="form-group m-2">
+                        <label for="fatherName">Nome do pai</label>
+                        <InputText class="form-control" @bind-Value="_candidato.NomePai" />
+                    </div>
+
+                    <div class="form-group m-2">
+                        <label for="phone1">Telefone</label>
+                        <div class="d-flex justify-content-between">
+                            <div class="input-group">
+                                <InputText @bind-Value="numeroTelefone" class="form-control w-auto" />
+
+                                <InputSelect class="form-select" @bind-Value="tipoTelefone">
+                                    <option value="" selected hidden>Selecionar tipo</option>
+                                    <option value="Celular">Celular</option>
+                                    <option value="Telefone">Telefone</option>
+                                    <option value="Contato">Contato</option>
+                                </InputSelect>
+
+                                <button class="btn btn-primary" @onclick="AdicionarTelefone">Adicionar</button>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <ul class="list-group mt-3">
+
+                        @if (telefones.Count > 0)
+                        {
+                            <li class="list-group-item d-flex justify-content-between align-items-center active">Telefones adicionados</li>
+                            @foreach (var item in telefones)
+                            {
+                                <li class="list-group-item d-flex justify-content-between align-items-center">@item.Numero | @item.TipoTelefone<button class="btn btn-danger btn-sm" @onclick="() => RetirarTelefone(item)">Excluir</button></li>
+                            }
+                        }
+                    </ul>
+                </fieldset>
+            }
+
+            @if (etapaAtual == 2)
+            {
+                <fieldset class="form-group">
+                    <legend>Endereço</legend>
+
+                    <div class="form-group m-2">
+                        <label for="street">Logradouro</label>
+                        <InputText class="form-control" @bind-Value="endereco.Logradouro" />
+                    </div>
+
+                    <div class="form-group m-2">
+                        <label for="number">Número</label>
+                        <InputText class="form-control" @bind-Value="numeroResidencia" />
+                    </div>
+
+                    <div class="form-group m-2">
+                        <label for="CEP">CEP</label>
+                        <InputText class="form-control" @bind-Value="endereco.CEP" />
+                    </div>
+
+                    <div class="form-group m-2">
+                        <label for="city">Cidade</label>
+                        <InputText class="form-control" @bind-Value="cidade.Nome" />
+                    </div>
+
+                    <div class="form-group m-2">
+                        <label for="state">Estado</label>
+                        <InputText class="form-control" @bind-Value="estado.Nome" />
+                    </div>
+                </fieldset>
+            }
+
+            @if (etapaAtual == 3)
+            {
+                <fieldset class="fieldset">
+                <legend>Cursos para matrícula</legend>
+
+                <div class="form-group m-2">
+                    <label for="curso1">Escolha:</label>
+                    <div class="d-flex justify-content-between">
+                        <InputSelect class="form-select me-1" @bind-Value="cursoMatriculado" @onclick="LimparMensagens">
+                            <option value="" hidden selected>Selecione uma matéria</option>
+                            <option value="Algoritmos">Algoritmos</option>
+                            <option value="Estruturas de dados">Estruturas de Dados</option>
+                            <option value="Linguagens de Programação">Linguagens de Programação</option>
+                            <option value="Banco de Dados">Banco de Dados</option>
+                            <option value="Redes de Computadores">Redes de Computadores</option>
+                            <option value="Sistemas Operacionais">Sistemas Operacionais</option>
+                            <option value="Inteligência Artificial">Inteligência Artificial</option>
+                            <option value="Computação Gráfica">Computação Gráfica</option>
+                            <option value="Segurança da Informação">Segurança da Informação</option>
+                            <option value="Engenharia de Software">Engenharia de Software</option>
+                        </InputSelect>
+
+                        <button class="btn btn-primary" @onclick="AdicionarCursoMatriculado">Adicionar</button>
+
+                    </div>
+
+                    @if (mensagemErro)
+                    {
+                        <p class="alert-danger">Não pode ter mais de três cursos matriculados</p>
+                    }
+
+                    <ul class="list-group mt-3">
+                        @if (cursosMatriculados.Count > 0)
+                        {
+                            <li class="list-group-item d-flex justify-content-between align-items-center active">Cursos escolhidos para matrícula</li>
+                            @foreach (var item in cursosMatriculados)
+                            {
+                                <li class="list-group-item d-flex justify-content-between align-items-center">@item.Nome <button class="btn btn-danger btn-sm" @onclick="() => RetirarCursoMatriculado(item)">Excluir</button></li>
+
+                            }
+                        }
+                        
+                    </ul>
+                </div>
+            </fieldset>
+            }
+            @if (etapaAtual == 4)
+            {
+                <fieldset class="fieldset">
+                <legend>Cursos de interesse</legend>
+
+                <div class="form-group m-2">
+                    <label for="cursoInteresse1">Escolha:</label>
+                    <div class="d-flex justify-content-between">
+                        <InputSelect class="form-select me-1" @bind-Value="cursoInteressado" @onclick="LimparMensagens">
+                            <option value="" hidden selected>Selecione uma matéria</option>
+                            <option value="Algoritmos">Algoritmos</option>
+                            <option value="Estruturas de dados">Estruturas de Dados</option>
+                            <option value="Linguagens de Programação">Linguagens de Programação</option>
+                            <option value="Banco de Dados">Banco de Dados</option>
+                            <option value="Redes de Computadores">Redes de Computadores</option>
+                            <option value="Sistemas Operacionais">Sistemas Operacionais</option>
+                            <option value="Inteligência Artificial">Inteligência Artificial</option>
+                            <option value="Computação Gráfica">Computação Gráfica</option>
+                            <option value="Segurança da Informação">Segurança da Informação</option>
+                            <option value="Engenharia de Software">Engenharia de Software</option>
+                        </InputSelect>
+
+                        <button class="btn btn-primary" @onclick="AdicionarCursoInteressado">Adicionar</button>
+                    </div>
+                    @if (mensagemErroInteresse)
+                    {
+                        <p class="alert-danger">Não pode ter mais de três cursos interessados</p>
+                    }
+                    <ul class="list-group mt-3">
+
+                        @if (cursosInteressados.Count > 0)
+                        {
+                            <li class="list-group-item d-flex justify-content-between align-items-center active">Cursos de interesse</li>
+                            @foreach (var item in cursosInteressados)
+                            {
+                                <li class="list-group-item d-flex justify-content-between align-items-center">@item.Nome <button class="btn btn-danger btn-sm" @onclick="() => RetirarCursoInteressado(item)">Excluir</button></li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </fieldset>
+            }
+            
+            @if (etapaAtual == 5)
+            {
+                <fieldset class="fieldset">
+                    <legend>Informações de login</legend>
+
+                <div class="form-group m-2">
+                    <label for="email">E-mail</label>
+                    <InputText class="form-control" @bind-Value="_candidato.Email" />
+                </div>
+
+                <div class="form-group m-2">
+                    <label for="password">Senha</label>
+                    <InputText type="password" class="form-control" @bind-Value="_candidato.Senha" />
+                </div>
+            </fieldset>
+            }
+
+            <div class="d-flex justify-content-end">
+                <button @onclick="EtapaAnterior" disabled="@etapaAtual.Equals(1)" class="btn btn-primary m-3">Voltar</button>
+                <button @onclick="ProximaEtapa" disabled="@etapaAtual.Equals(5)" class="btn btn-primary m-3">Próximo</button>
+                <button type="submit" class="btn btn-primary m-3" hidden="@(etapaAtual != 5)">Enviar</button>
+            </div>
+            
+
+        </div>
+    </div>
+
+</EditForm>
+
+@code {
+
+    private int etapaAtual = 1;
+    private bool blockSubmit;
+
+    private void ProximaEtapa() => etapaAtual++;
+
+    private void EtapaAnterior()
+    {
+        etapaAtual--;
+    }
+
+    Candidato _candidato = new();
+    private List<Telefone> telefones = new();
+    private List<Curso> cursosMatriculados = new();
+    private List<Curso> cursosInteressados = new();
+
+    private int cursoId = 1;
+    private int cursoInteressadoId = 1;
+
+    private string numeroTelefone;
+    private string tipoTelefone;
+
+    private string cursoMatriculado;
+    private string cursoInteressado;
+
+    private string numeroResidencia = "";
+    private bool mensagemErro = false;
+    private bool mensagemErroInteresse = false;
+    private Estado estado = new();
+    private Cidade cidade = new();
+    private Endereco endereco = new();
+
+
+    Request<Candidato> request = new();
+
+    private void Submit()
+    {
+        endereco.Cidade = cidade;
+        endereco.Cidade.Estado = estado;
+        endereco.Numero = Int32.Parse(numeroResidencia);
+
+        _candidato.CursosMatriculados = cursosMatriculados;
+        _candidato.CursosInteresses = cursosInteressados;
+        _candidato.Telefones = telefones;
+        _candidato.Endereco = endereco;
+        request.Entidade = _candidato;
+
+        request.Operacao = "SALVAR";
+
+        var results = CandidatoController.Post(request);
+    }
+
+    private void AdicionarCursoMatriculado()
+    {
+        var cursoExistente = cursosMatriculados.Exists(item => item.Nome == cursoMatriculado);
+
+        if (!string.IsNullOrEmpty(cursoMatriculado) && !cursoExistente)
+        {
+            if (cursosMatriculados.Count < 3)
+            {
+                Curso curso = new();
+                curso.Id = cursoId;
+                curso.Nome = cursoMatriculado;
+
+                cursosMatriculados.Add(curso);
+                cursoMatriculado = string.Empty;
+                cursoId++;
+            }
+            else
+            {
+                mensagemErro = true;
+            }
+        }
+    }
+
+    private void AdicionarCursoInteressado()
+    {
+        var cursoExistente = cursosInteressados.Exists(item => item.Nome == cursoInteressado);
+        if (!string.IsNullOrEmpty(cursoInteressado) && !cursoExistente)
+        {
+            if (cursosInteressados.Count < 3)
+            {
+                Curso curso = new();
+                curso.Id = cursoInteressadoId;
+                curso.Nome = cursoInteressado;
+
+                cursosInteressados.Add(curso);
+                cursoInteressado = string.Empty;
+                cursoId++;
+            }
+            else
+            {
+                mensagemErroInteresse = true;
+            }
+        }
+    }
+
+    private void RetirarCursoMatriculado(Curso cursoEscolhido)
+    {
+        cursosMatriculados.Remove(cursoEscolhido);
+    }
+
+    private void RetirarCursoInteressado(Curso cursoEscolhido)
+    {
+        cursosInteressados.Remove(cursoEscolhido);
+    }
+
+    private void LimparMensagens()
+    {
+        mensagemErro = false;
+        mensagemErroInteresse = false;
+    }
+
+    private void AdicionarTelefone()
+    {
+        Console.WriteLine(numeroTelefone);
+        Console.WriteLine(tipoTelefone);
+
+
+        if (!string.IsNullOrEmpty(numeroTelefone) && !string.IsNullOrEmpty(tipoTelefone))
+        {
+            if (telefones.Count < 3)
+            {
+                Telefone telefone = new();
+
+                telefone.Numero = numeroTelefone;
+                telefone.TipoTelefone = tipoTelefone;
+
+                telefones.Add(telefone);
+
+                numeroTelefone = string.Empty;
+                tipoTelefone = string.Empty;
+            }
+        }
+    }
+
+    private void RetirarTelefone(Telefone telefone)
+    {
+        telefones.Remove(telefone);
+    }
+
+    
+}
